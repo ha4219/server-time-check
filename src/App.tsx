@@ -30,7 +30,7 @@ function App() {
     )
       .then((res) => res.json())
       .then((res) => {
-        setDiff(Date.now() + res?.time * 1000);
+        setDiff(Date.now() - res?.time * 1000);
       });
 
     return;
