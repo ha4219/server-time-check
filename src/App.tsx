@@ -6,6 +6,7 @@ function App() {
   const [time, setTime] = useState(Date.now());
   const [gap, setGap] = useState(100);
   const [frac, setFrac] = useState<1 | 2 | 3>(2);
+  const [error, setError] = useState('');
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -31,13 +32,16 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setDiff(Date.now() - res?.time * 1000);
+      })
+      .catch((e) => {
+        setError(e);
       });
 
     return;
   };
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(Date.now() + diff), gap);
+    const interval = setInterval(() => setTime(Date.now() - diff), gap);
 
     return () => clearInterval(interval);
   }, [diff, gap]);
@@ -55,7 +59,7 @@ function App() {
               htmlFor="gap"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              gap
+              gap(ms)
             </label>
             <input
               type="number"
