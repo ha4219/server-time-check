@@ -6,7 +6,6 @@ function App() {
   const [time, setTime] = useState(Date.now());
   const [gap, setGap] = useState(100);
   const [frac, setFrac] = useState<1 | 2 | 3>(2);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -32,9 +31,6 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setDiff(Date.now() - res?.time * 1000);
-      })
-      .catch((e) => {
-        setErrorMessage(e);
       });
 
     return;
@@ -155,9 +151,6 @@ function App() {
           <span className="font-bold text-3xl text-gray-900 dark:text-white font-montserrat">
             diff: {diff.toFixed(3)}ms
           </span>
-        </div>
-        <div>
-          <span className="text-xl text-red-500">{errorMessage}</span>
         </div>
       </div>
     </div>
